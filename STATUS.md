@@ -2,38 +2,47 @@
 
 ## Current Task
 
-Bootstrap the empty repository with starter documentation and a minimal runnable skeleton.
+Implement the first automated ShortsMaker pipeline for saju-based copy, multilingual TTS, and Remotion rendering prep.
 
 ## Working Session
 
 - Agent: gpt-5-codex
 - Date: 2026-03-14
 - Branch: main
-- Focus: Initialize the repository so future work can continue with a clear structure.
+- Focus: Turn the bootstrap into a working vertical slice for automated short generation.
 
 ## Done
 
-- Created the base repository documents: `README.md`, `AGENTS.md`, `PROJECT_BRIEF.md`, `STATUS.md`, and `ARCHITECTURE.md`.
-- Added a minimal Python package with a simple CLI entry point.
-- Added a smoke test and basic ignore rules.
-- Verified `python -m shortsmaker` and the smoke test both run successfully with `PYTHONPATH=src`.
+- Created the initial repository structure and handoff docs.
+- Added a minimal Python package and smoke test baseline.
+- Reframed the product around saju-based short generation for TikTok, Instagram Reels, and Facebook Reels.
+- Added a profile schema, multilingual hook-generation pipeline, and a sample input profile.
+- Added pluggable TTS providers with `edge-tts` as the working default and Azure Speech as the upgrade path.
+- Added a Remotion renderer project and Python render-prep / render execution helpers.
+- Verified unit tests, a real English TTS run, Remotion prop generation, and one successful MP4 render.
 
 ## Next
 
-- Choose the first concrete generation workflow to implement.
-- Add configuration for input, asset, and output directories.
-- Integrate the first real media-processing command once requirements are fixed.
+- Improve locale copy quality for each supported language with market-specific phrasing.
+- Add provider selection for higher-quality commercial TTS such as Azure Speech once credentials are available.
+- Add richer scene logic such as timed caption chunks, B-roll assets, and per-platform visual presets.
 
 ## Blocked
 
-- Product requirements are still open: input type, output style, captioning needs, and publishing target are not defined yet.
+- No hard blocker yet.
+- Production-quality Azure Speech usage needs `AZURE_SPEECH_KEY` and `AZURE_SPEECH_REGION`.
+- Full publishing automation still needs platform credential strategy and rate-limit handling.
 
 ## Notes for Next Agent
 
-- Keep the next task narrow and vertical. One working pipeline is more valuable than broad scaffolding.
-- Generated files should stay in `output/`, `temp/`, or another ignored directory.
-- Revisit the Python-first assumption only if the first real requirement clearly needs a different stack.
+- Current product direction is fixed around saju-based shorts for TikTok, Instagram Reels, and Facebook Reels.
+- Target locale coverage for the MVP is `en`, `ko`, `ja`, `id`, `th`, `vi`, and `hi`.
+- Prefer pluggable providers instead of baking vendor assumptions into the core planning logic.
+- `python -m shortsmaker run --profile input\profiles\sample_saju.json --language en` is already verified.
+- `python -m shortsmaker render --plan output\jobs\<job-id>\plan.json --language en --execute` is also verified after `npm install` inside `renderer/`.
+- Non-ASCII text displays garbled in some terminal outputs, but the JSON files themselves are stored correctly in UTF-8.
 
 ## Agent Contribution
 
 - gpt-5-codex: bootstrapped the repository with workflow docs, a package skeleton, and a quick verification path.
+- gpt-5-codex: implemented the first end-to-end saju short pipeline with multilingual copy planning, TTS, and Remotion rendering.

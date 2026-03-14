@@ -4,11 +4,17 @@ build-backend = "setuptools.build_meta"
 
 [project]
 name = "shortsmaker"
-version = "0.1.0"
-description = "Starter workspace for building short-form video generation tools."
+version = "0.2.0"
+description = "Automated saju-based short video generation pipeline."
 readme = "README.md"
 requires-python = ">=3.11"
-dependencies = []
+dependencies = [
+    "edge-tts>=7.0.0",
+    "mutagen>=1.47.0",
+]
+
+[project.optional-dependencies]
+azure = ["azure-cognitiveservices-speech>=1.42.0"]
 
 [project.scripts]
 shortsmaker = "shortsmaker.cli:main"

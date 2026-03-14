@@ -5,6 +5,7 @@ venv/
 .pytest_cache/
 .mypy_cache/
 .ruff_cache/
+.coverage
 
 .vscode/
 .idea/
@@ -16,6 +17,11 @@ build/
 dist/
 *.egg-info/
 
+renderer/node_modules/
+renderer/out/
+renderer/public/jobs/
+
+input/runtime/
 output/
 temp/
 cache/

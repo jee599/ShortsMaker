@@ -1,0 +1,41 @@
+{
+  "profile_id": "metal-water-money",
+  "display_name": "Metal strong chart with weak wood",
+  "day_master": "water",
+  "five_elements": {
+    "wood": 14,
+    "fire": 18,
+    "earth": 21,
+    "metal": 32,
+    "water": 27
+  },
+  "dominant_element": "metal",
+  "lacking_element": "wood",
+  "energy_flow": "metal-supports-water",
+  "yin_yang_balance": "yang-heavy",
+  "season": "autumn",
+  "focus_themes": [
+    "money",
+    "career",
+    "luck"
+  ],
+  "special_traits": [
+    "sharp judgment",
+    "slow trust"
+  ],
+  "target_languages": [
+    "en",
+    "ko",
+    "ja",
+    "id",
+    "th",
+    "vi",
+    "hi"
+  ],
+  "target_platforms": [
+    "tiktok",
+    "instagram_reels",
+    "facebook_reels"
+  ],
+  "brand_label": "Saju Signal"
+}
