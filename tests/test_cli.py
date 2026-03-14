@@ -1,5 +1,6 @@
 import io
 import json
+import os
 import shutil
 import sys
 import unittest
@@ -53,3 +54,27 @@ class CliSmokeTest(unittest.TestCase):
 
         self.assertTrue(props_path.exists())
         self.assertIsNone(props["narration"]["audioSrc"])
+
+    def test_cli_plan_resolves_repo_relative_profile_outside_root(self) -> None:
+        original_cwd = Path.cwd()
+        os.chdir(ROOT.parent)
+        self.addCleanup(lambda: os.chdir(original_cwd))
+
+        buffer = io.StringIO()
+        with redirect_stdout(buffer):
+            exit_code = main(
+                [
+                    "plan",
+                    "--profile",
+                    r"input\profiles\sample_saju.json",
+                    "--languages",
+                    "en",
+                ]
+            )
+
+        output = buffer.getvalue().strip()
+        plan_path = Path(output.split("Plan created at: ", maxsplit=1)[1])
+        self.addCleanup(lambda: shutil.rmtree(plan_path.parent, ignore_errors=True))
+
+        self.assertEqual(exit_code, 0)
+        self.assertTrue(plan_path.exists())

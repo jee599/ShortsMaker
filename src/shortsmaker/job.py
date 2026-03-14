@@ -2,7 +2,7 @@ from __future__ import annotations
 
 from pathlib import Path
 
-from shortsmaker.config import ensure_runtime_directories
+from shortsmaker.config import ensure_runtime_directories, repo_paths
 from shortsmaker.hooks import generate_hook_variants
 from shortsmaker.languages import get_language_pack
 from shortsmaker.models import DEFAULT_LANGUAGES, DEFAULT_PLATFORMS, SajuProfile
@@ -37,13 +37,17 @@ SAMPLE_PROFILE = {
 
 def create_sample_profile(output_path: Path | None = None) -> Path:
     paths = ensure_runtime_directories()
-    target = output_path or paths.input_profiles / "sample_saju.json"
+    target = (
+        resolve_workspace_path(output_path)
+        if output_path is not None
+        else paths.input_profiles / "sample_saju.json"
+    )
     write_json(target, SAMPLE_PROFILE)
     return target
 
 
 def load_profile(path: Path) -> SajuProfile:
-    return SajuProfile.from_dict(read_json(path))
+    return SajuProfile.from_dict(read_json(resolve_workspace_path(path)))
 
 
 def create_plan(
@@ -103,7 +107,7 @@ def create_plan(
 
 
 def load_plan(plan_path: Path) -> dict[str, object]:
-    return read_json(plan_path)
+    return read_json(resolve_workspace_path(plan_path))
 
 
 def synthesize_plan(
@@ -180,3 +184,18 @@ def run_pipeline(
     else:
         prepare_render_jobs(plan, plan_path, selected_language=selected_language)
     return load_plan(plan_path), plan_path
+
+
+def resolve_workspace_path(path: Path) -> Path:
+    if path.is_absolute():
+        return path
+
+    cwd_candidate = (Path.cwd() / path).resolve()
+    if cwd_candidate.exists():
+        return cwd_candidate
+
+    repo_candidate = (repo_paths().root / path).resolve()
+    if repo_candidate.exists():
+        return repo_candidate
+
+    return cwd_candidate
