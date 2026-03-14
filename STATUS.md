@@ -9,7 +9,7 @@ Implement the first automated ShortsMaker pipeline for saju-based copy, multilin
 - Agent: gpt-5-codex
 - Date: 2026-03-14
 - Branch: main
-- Focus: Harden CLI path handling so relative profile and plan paths still work outside the repo root.
+- Focus: Generate a fresh sample English short artifact for user validation.
 
 ## Done
 
@@ -22,6 +22,7 @@ Implement the first automated ShortsMaker pipeline for saju-based copy, multilin
 - Verified unit tests, a real English TTS run, Remotion prop generation, and one successful MP4 render.
 - Hardened CLI path handling so relative `--profile` and `--plan` paths resolve from either the current working directory or the repo root.
 - Increased job timestamp precision to reduce accidental output folder collisions.
+- Generated another sample English short end-to-end at `output/jobs/metal-water-money-20260314T065549380207Z/` for quick user review.
 
 ## Next
 
@@ -43,6 +44,7 @@ Implement the first automated ShortsMaker pipeline for saju-based copy, multilin
 - `python -m shortsmaker run --profile input\profiles\sample_saju.json --language en` is already verified.
 - The same `run` command is now also verified from one directory above the repo, so repo-relative paths are no longer fragile.
 - `python -m shortsmaker render --plan output\jobs\<job-id>\plan.json --language en --execute` is also verified after `npm install` inside `renderer/`.
+- Latest validation artifact: `output/jobs/metal-water-money-20260314T065549380207Z/videos/en.mp4`.
 - Non-ASCII text displays garbled in some terminal outputs, but the JSON files themselves are stored correctly in UTF-8.
 
 ## Agent Contribution
@@ -50,3 +52,4 @@ Implement the first automated ShortsMaker pipeline for saju-based copy, multilin
 - gpt-5-codex: bootstrapped the repository with workflow docs, a package skeleton, and a quick verification path.
 - gpt-5-codex: implemented the first end-to-end saju short pipeline with multilingual copy planning, TTS, and Remotion rendering.
 - gpt-5-codex: fixed repo-relative CLI path handling and reduced job folder collisions.
+- gpt-5-codex: generated a fresh sample English short artifact for validation.
